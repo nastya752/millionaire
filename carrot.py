@@ -104,11 +104,17 @@ def ball_move():
     if ball_top <0 or ball_bottom>400:
         y=-y
     plat1_coords = can.coords(plat1)
-    if ball_left in plat1_coords:
+    if ball_left <= plat1_coords[2] and ball_right >= plat1_coords[0] and \
+            ball_bottom >= plat1_coords[1] and ball_top <= plat1_coords[3]:
+        x=-x
+        y=-y
+    plat2_coords = can.coords(plat2)
+    if ball_right >= plat2_coords[0] and ball_left <= plat2_coords[2] and \
+            ball_bottom >= plat2_coords[1] and ball_top <= plat2_coords[3]:
         x=-x
         y=-y
     ball_x+=x
     ball_y+=y
-    can.after(15, ball_move)x
+    can.after(15, ball_move)
 ball_move()
 app_1.mainloop()
