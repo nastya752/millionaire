@@ -79,26 +79,36 @@ plat2=can.create_rectangle(635,170,640,260, fill="white")
 can.create_rectangle(330,20,350,400, fill="white")
 ball=can.create_oval(ball_x,ball_y,ball_x+15,ball_y+15, fill="white")
 plat1=can.create_rectangle(55,170,60,260, fill="white")
-can.create_text(300, 50, text=k_1, font='Arial 50')
-can.create_text(370, 50, text=k_2, font='Arial 50')
+text_1=can.create_text(300, 50, text=k_1, font='Arial 50')
+text_2=can.create_text(370, 50, text=k_2, font='Arial 50')
 can.focus_set()
 can.bind("<w>", moving)
 can.bind("<s>", moving)
 can.bind("<Up>", moving)
 can.bind("<Down>", moving)
 def ball_move():
-    global x,y,ball_x,ball_y
+    global x,y,ball_x,ball_y,k_1,k_2,text_1,text_2
     can.move(ball,x,y)
     ball_coords = can.coords(ball)
     ball_left, ball_top, ball_right, ball_bottom = ball_coords
     if ball_right>680:
+        can.delete(text_2)
+        k_2 += 1
+        text_2 = can.create_text(380, 50, text=k_2, font='Arial 50')
         x=-x
-    if ball_left>0:
+    if ball_left<0:
+        can.delete(text_1)
+        k_1+=1
+        text_1 = can.create_text(300, 50, text=k_1, font='Arial 50')
         x=-x
     if ball_top <0 or ball_bottom>400:
         y=-y
+    plat1_coords = can.coords(plat1)
+    if ball_left in plat1_coords:
+        x=-x
+        y=-y
     ball_x+=x
     ball_y+=y
-    can.after(15, ball_move)
+    can.after(15, ball_move)x
 ball_move()
-app_1.mainloop()ю
+app_1.mainloop()
