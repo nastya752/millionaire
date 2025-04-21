@@ -101,4 +101,4 @@ def ball_move():
     ball_y+=y
     can.after(15, ball_move)
 ball_move()
-app_1.mainloop()
+app_1.mainloop()ю
