@@ -15,17 +15,50 @@ answer=[["Азия", "Япония","Австралия", "Европа"],["на
         ["вандам","усейн болт","едгар по","клад Монэ"],["Барталомео Диашь","Джон Брюс","Васка Дамага","Христофер Колумб"]]
 
 correct_answer=[3,1,2,4,1,4,2,3,1]
-
+both_3=None
+answer_4=None
+answer_1=None
+answer_2=None
+answer_3=None
+Label_1=None
+new_window=None
+Label_sum=None
+Label_3=None
+count=15
 i=0
 def start_game():
-    global app
+    global app,answer_1,answer_2,answer_3,answer_4,both_3,Label_1,new_window,Label_3,Label_sum,Label_sum
     app.destroy()
-new_window=Tk()
-count=15
-after_id=""
-both_3 = Label(text="таймер", height=3, width=25, bg="#414053")
+    new_window=Tk()
+    after_id=""
+    both_3 = Label(text="таймер", height=3, width=25, bg="#414053")
+    new_window.geometry("750x750+150+0")
+    new_window["bg"] = "#acabbf"
+    both_3.place(x=150, y=100)
+    both_200 = Button(text="помощь", height=4, width=28, bg="#414053", command=help)
+    both_200.place(x=15, y=250)
+    both_5 = Button(text="50/50", height=4, width=28, bg="#414053", command=fifty_fifty)
+    both_5.place(x=250, y=250)
+    both_6 = Button(text="забрать деньги", height=4, width=28, bg="#414053", command=get_money)
+    both_6.place(x=485, y=250)
+    answer_3 = Button(text=answer[i][2], height=4, width=47, bg="#414053", command=lambda: question(number=3))
+    answer_3.place(x=15, y=600)
+    answer_4 = Button(text=answer[i][3], height=4, width=47, bg="#414053", command=lambda: question(number=4))
+    answer_4.place(x=360, y=600)
+    answer_1 = Button(text=answer[i][0], height=4, width=47, bg="#414053", command=lambda: question(number=1))
+    answer_1.place(x=15, y=500)
+    answer_2 = Button(text=answer[i][1], height=4, width=47, bg="#414053", command=lambda: question(number=2))
+    answer_2.place(x=360, y=500)
+    Label_1 = Label(text=quest[i], height=4, width=100, bg="#414053")
+    Label_1.place(x=15, y=400)
+    Label_sum = Label(text="сума: 0", height=3, width=25, bg="#d2d2d6")
+    Label_sum.place(x=400, y=100)
+    Label_3 = Label(text="вопрос №1", height=3, width=25, bg="#ffffff")
+    Label_3.place(x=20, y=340)
+    tick()
+
 def tick():
-    global count, after_id
+    global count, after_id,new_window
     after_id = new_window.after(1000, tick)
     count-=1
     both_3["text"]=count
@@ -68,7 +101,7 @@ def get_money():
 
 
 def next_question(both_3,both_4,answer_1,both_6,both_7,Label_1, number):
-    global i, count, money, Label_sum
+    global i, count, money, Label_sum,Label_3
     count = 5
 
     both_4.config(state="normal")
@@ -119,7 +152,7 @@ def next_question(both_3,both_4,answer_1,both_6,both_7,Label_1, number):
         Label_11.place(x=50,y=35)
 
 def help():
-    global i
+    global i,both_200
     print(correct_answer[i])
     both_200.config(state="disabled")
     both_200.config(relief=SUNKEN)
@@ -141,7 +174,7 @@ def help():
         answer_3.config(state="disabled")
 
 def fifty_fifty():
-    global i
+    global i,both_5
     print(correct_answer[i])
     both_5.config(state="disabled")
     both_5.config(relief=SUNKEN)
@@ -164,35 +197,13 @@ def question(number):
     next_question(number=number, both_3=both_3, both_4=answer_4,
                   answer_1=answer_1, both_6=answer_2, both_7=answer_3, Label_1=Label_1)
 
-tick()
-new_window.geometry("750x750+150+0")
-new_window["bg"] = "#acabbf"
-both_3.place(x=150, y=100)
-both_200 = Button(text="помощь", height=4, width=28, bg="#414053", command=help)
-both_200.place(x=15, y=250)
-both_5 = Button(text="50/50", height=4, width=28, bg="#414053", command=fifty_fifty)
-both_5.place(x=250, y=250)
-both_6= Button(text="забрать деньги", height=4, width=28, bg="#414053", command=get_money)
-both_6.place(x=485, y=250)
-answer_3 = Button(text=answer[i][2], height=4, width=47, bg="#414053", command=lambda:question(number=3))
-answer_3.place(x=15, y=600)
-answer_4 = Button(text=answer[i][3], height=4, width=47, bg="#414053", command=lambda:question(number=4))
-answer_4.place(x=360, y=600)
-answer_1 = Button(text=answer[i][0], height=4, width=47, bg="#414053", command=lambda:question(number=1))
-answer_1.place(x=15, y=500)
-answer_2 = Button(text=answer[i][1], height=4, width=47, bg="#414053", command=lambda:question(number=2))
-answer_2.place(x=360, y=500)
-Label_1 =Label (text=quest[i], height=4, width=100, bg="#414053")
-Label_1.place(x=15, y=400)
-Label_sum=Label(text="сума: 0",height=3, width=25, bg="#d2d2d6")
-Label_sum.place(x=400, y=100)
-Label_3=Label(text="вопрос №1", height=3, width=25, bg="#ffffff")
-Label_3.place(x=20, y=340)
-# app=Tk()
-# app.geometry("750x750+150+0")
-# app["bg"]="#acabbf"
-# both_1=Button(text="играть",height=17, width=75, bg="#414053", font=("Arial",12), command=start_game)
-# both_1.place(x=20, y=20)
-# both_2=Button(text="закончить игру",height=17, width=75, bg="#414053", font=("Arial",12), command=end)
-# both_2.place(x=20, y=350)
+
+
+app=Tk()
+app.geometry("750x750+150+0")
+app["bg"]="#acabbf"
+both_1=Button(text="играть",height=17, width=75, bg="#414053", font=("Arial",12), command=start_game)
+both_1.place(x=20, y=20)
+both_2=Button(text="закончить игру",height=17, width=75, bg="#414053", font=("Arial",12), command=end)
+both_2.place(x=20, y=350)
 mainloop()
